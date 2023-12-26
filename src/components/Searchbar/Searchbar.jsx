@@ -1,32 +1,28 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { SearchbarHeader, SearchForm, SearchFormButton, SearchFormButtonLabel, SearchFormInput } from './Searchbar.styled';
 
-class Searchbar extends Component {
-  state = {
-  searchName:'',
-  }
-  
-  searchNameChange = event => {
-    this.setState({ searchName: event.currentTarget.value.toLowerCase() })
+const Searchbar = ({onSubmit}) => {
+  const [searchName, setSearchName] = useState('');
+
+  const searchNameChange = event => {
+    setSearchName( event.currentTarget.value.toLowerCase())
   }
 
-  searchSubmit = event => {
+   const  searchSubmit = event => {
     event.preventDefault();
 
-    if (this.state.searchName.trim() === '') {
+    if (searchName.trim() === '') {
       alert('Fill search filed')
       return
     }
 
-    this.props.onSubmit(this.state.searchName)
-    this.setState({searchName:''})
+    onSubmit(searchName)
+    setSearchName('')
   }
-
-
-  render() {
-    return (
+  
+   return (
       <SearchbarHeader >
-        <SearchForm onSubmit={this.searchSubmit}>
+        <SearchForm onSubmit={searchSubmit}>
           <SearchFormButton type="submit" >
             <SearchFormButtonLabel >
               Search
@@ -38,12 +34,56 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            onChange={this.searchNameChange}
+            onChange={searchNameChange}
           />
         </SearchForm>
       </SearchbarHeader>
     ); 
-    }
 }
+
+// class Searchbar extends Component {
+//   state = {
+//   searchName:'',
+//   }
+  
+//   searchNameChange = event => {
+//     this.setState({ searchName: event.currentTarget.value.toLowerCase() })
+//   }
+
+//   searchSubmit = event => {
+//     event.preventDefault();
+
+//     if (this.state.searchName.trim() === '') {
+//       alert('Fill search filed')
+//       return
+//     }
+
+//     this.props.onSubmit(this.state.searchName)
+//     this.setState({searchName:''})
+//   }
+
+
+//   render() {
+//     return (
+//       <SearchbarHeader >
+//         <SearchForm onSubmit={this.searchSubmit}>
+//           <SearchFormButton type="submit" >
+//             <SearchFormButtonLabel >
+//               Search
+//             </SearchFormButtonLabel>
+//           </SearchFormButton>
+
+//           <SearchFormInput
+//             type="text"
+//             autoComplete="off"
+//             autoFocus
+//             placeholder="Search images and photos"
+//             onChange={this.searchNameChange}
+//           />
+//         </SearchForm>
+//       </SearchbarHeader>
+//     ); 
+//     }
+// }
 
 export default Searchbar
