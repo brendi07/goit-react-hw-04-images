@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState ,useCallback} from "react";
 
 import { ImageGalleryList } from "./ImageGallery.styled";
 import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem";
@@ -11,9 +11,13 @@ const ImageGallery = ({images}) => {
     setSelectedImage(image);
   };
 
-  const closeModal = () => {
+  // const closeModal = () => {
+  //   setSelectedImage(null);
+  // }
+
+  const closeModal = useCallback(() => {
     setSelectedImage(null);
-  }
+  }, []);
 
    return (
       <div>
